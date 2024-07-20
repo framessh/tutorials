@@ -79,7 +79,7 @@ If this condition is not satisfied we check the `request` if it's a POST request
       //! Determine which page we want to show based on the buttonId and page
       //! {$buttonId}{$page} indicates we're combining both values of the variables
       //! By default the landing page will not provide a state (in which our page should be stated)
-      //! therefore it defaults to null and so we check the {$buttonId}{$page} against 1null (1 for button 1) and null for no state
+      //! therefore it defaults to null and so we check the {$buttonId}{$page} against 1null (1 for button 1 and null for no state)
       //! We can check {$buttonId}{$page} against multiple values, multiple values are delimited using the | character in the switch command
       //! On the first page there is only one button - "Next"
       //! The switch command takes 3 arguments, value A and, the value we want to compare value A against, and which line of code we want the app to jump to
@@ -119,7 +119,7 @@ Finally, all the page responses to each POST request are organized like so:
   //! The template command takes 2 arguments - first is the image override, and the second is the template name
   //! The image override argument is a link to an image that you want your frame to display
   //! If the image override is null, the app will take a screenshot of your template and serve it as the frame image
-  //! The image override is useful especially if you want the frame to use GIFs (since screenshots cannot server motion images).
+  //! The image override is useful especially if you want the frame to use GIFs (since screenshots cannot serve motion images).
   template null,welcome-page.html;
 
   //! Respond to the request with the template content
