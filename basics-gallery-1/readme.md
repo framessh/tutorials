@@ -36,21 +36,21 @@ If a queue ID is not set, a random ID is assigned. Queue IDs are useful for stic
 
 ### Asessing GET & POST Requests
 
-When a frame is rendered on a Farcaster application, a `GET` request is sent to the frame application. Similarly, if a user clicks a button on a frame, a `POST` To handle this GET request, the `request` system variable is checked:
+When a frame is rendered on a Farcaster application, a `GET` request is sent to the frame application. Similarly, if a user clicks a button on a frame, a `POST` is sent to the frame application. To handle the GET request, the `request` system variable is checked:
 
 ```
   //! We have 3 pages on this frame - the welcome page, page 2, and page 3
   //! We want to show the landing page (welcome page), allow the user to click Next button to change to the next page & Back to the previous
-  //! Node that comments are marked with //! prefix
+  //! Note that comments are marked with //! prefix
 
   //! Show the default landing frame
   condition equal_to request GET;
     hop #showWelcomePage;
-      exit!;
+    exit!;
   end_if;
 ```
 
-For GET requests, the application hops to the `#showWelcomePage` portion of the code - more info on this on the comments in the code above.
+To handle our GET requests, the application hops to the `#showWelcomePage` portion of the code using the `hop` command. Hop allows the application to jump to a portion in your code indicated by code number of tags.
 
 If this condition is not satisfied we check the `request` if it's a POST request and process it accordingly:
 
@@ -98,14 +98,14 @@ If this condition is not satisfied we check the `request` if it's a POST request
   end_if;
 ```
 
-As noted on the comments, the `POST` request is handled by:
+As noted on the comments, the `POST` request is handled like so:
 
 1. Taking the buttonIndex (which button the user has clicked) and assigning it to a variable.
 2. Taking the state variable in the `POST` request payload.
 3. Taking the page variable and its value in the frame's state and assigning it to a variable.
 4. By using the `switch` command we can evaluate which page we want to display.
 
-The `switch` command is the same as the `hop` - it allows the application to jump to a portion in the application's code, skipping lines before it. The `switch` command however evaluates a condition first before executing a hop. As noted above, the switch command takes in a value and another value to compare it against, and if these 2 values are equivalents the application jumps to the indicated portion of the code in the 3 argument i.e. `#showPage2`,`#showWelcomePage`, and or `#showPage3`.
+The `switch` command is the same as the `hop` command - it allows the application to jump to a portion in the application's code, skipping lines before it. The `switch` command however evaluates a condition first before executing a hop. As noted above, the switch command takes in a value and another value to compare it against, and if these 2 values are equivalents the application jumps to the indicated portion of the code in the 3rd argument i.e. `#showPage2`,`#showWelcomePage`, and or `#showPage3`.
 
 Finally, all the page responses to each POST request are organized like so:
 
