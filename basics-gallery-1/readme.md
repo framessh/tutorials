@@ -6,7 +6,7 @@ This is a tutorial on how to build a basic gallery frame in frames.sh. The inclu
 
 **IMPORTANT**: Please refer to the documentations at https://docs.frames.sh for the description on the commands used in this tutorial.
 
-**Live Demo**: https://ny-1.frames.sh/v/38875
+**Live Demo**: https://warpcast.com/~/developers/frames?url=https%3A%2F%2Fny-1.frames.sh%2Fv%2F38875
 
 **Application Version Required**: `v1.0.5` (to update your version, go to your application's settings and Model tab then restart your application from the runtime tab in the settings popup)
 
