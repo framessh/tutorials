@@ -6,6 +6,8 @@ This is a tutorial on how to build a basic gallery frame in frames.sh. The inclu
 
 **IMPORTANT**: Please refer to the documentations at https://docs.frames.sh for the description on the commands used in this tutorial.
 
+**Live Demo**: https://ny-1.frames.sh/v/38875
+
 **Application Version Required**: `v1.0.5` (to update your version, go to your application's settings and Model tab then restart your application from the runtime tab in the settings popup)
 
 **Installations**: The included html files in this tutorial must be imported into your frame application for this tutorial to work or you can recreate these files from the your frame's view editor. The JSON file includes the code of the frame application shown in this tutorial.
