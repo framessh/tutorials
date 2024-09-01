@@ -1,1 +1,95 @@
-{"id":"s1708457878822","type":"run","data":{"name":"run","label":"Run","description":"Start the application","icon":"play_arrow","inputs":[{"name":"interface_enabled","label":"Enable Interface","type":"checkbox"},{"name":"interface_key","label":"Authentication Key","type":"text"},{"name":"interface_queue_key","label":"Queue Key","type":"text"}]},"children":[{"id":"s1721429464728","type":"execute_code","data":{"name":"execute_code","label":"Execute Code","description":"Execute Flex Code","icon":"code","inputs":[{"name":"code","label":"Flex Code","type":"code"}]},"children":[]},{"id":"s1721429466858","type":"execute_code","data":{"name":"execute_code","label":"Execute Code","description":"Execute Flex Code","icon":"code","inputs":[{"name":"code","label":"Flex Code","type":"code"}]},"children":[{"id":"s1721430393730","type":"execute_code","data":{"name":"execute_code","label":"Execute Code","description":"Execute Flex Code","icon":"code","inputs":[{"name":"code","label":"Flex Code","type":"code"}]},"children":[{"id":"s1721430399031","type":"execute_code","data":{"name":"execute_code","label":"Execute Code","description":"Execute Flex Code","icon":"code","inputs":[{"name":"code","label":"Flex Code","type":"code"}]},"children":[]}]}]}],"values":{"s1708457878822":{"type":"run","interface_enabled":true,"interface_queue_key":"untrustedData.fid"},"s1721429466858":{"type":"execute_code","code":"//! Create the tag for this line of code\ntag showWelcomePage;\n\n//! Get the template we want to show for this page\n//! The template command takes 2 arguments - first is the image override, and the second is the template name\n//! The image override argument is a link to an image that you want your frame to display\n//! If the image override is null, the app will take a screenshot of your template and serve it as the frame image\n//! The image override is useful especially if you want the frame to use GIFs (since screenshots cannot server motion images).\ntemplate null,welcome-page.html;\n\n//! Respond to the request with the template content\nrespond @@;\n\n//! Exit the application since we've completed the request\nexit!;"},"s1721429464728":{"type":"execute_code","code":"//! We have 3 pages on this frame - the welcome page, page 2, and page 3\n//! We want to show the landing page (welcome page), allow the user to click Next button to change to the next page & Back to the previous\n//! Node that comments are marked with //! prefix\n\n//! Show the default landing frame\ncondition equal_to request GET;\n\thop #showWelcomePage;\n    exit!;\nend_if;\n\n//! Process all POST request (Button Press)\ncondition equal_to request POST;\n    \n    //! Get the button ID from untrustedData\n    access buttonIndex,{$untrustedData};\n\t\n    //! Return values of the last function called can be accessed using @@\n    variable buttonId = @@;\n    \n\t//! Get the frame state\n    access state,{$untrustedData};\n    \n    //! Decode the page state (since the frame spec dictates it must be encoded as JSON string in URI form)\n    decode @@;\n    \n    //! Get the page value from our state (JSON object)\n    access page,@@;\n    \n    //! Store the page value into a variable\n    variable pageId = @@;\n    \n    //! Determine which page we want to show based on the buttonId and page\n    //! {$buttonId}{$page} indicates we're combining both values of the variables\n    //! By default the landing page will not provide a state (in which our page should be stated)\n    //! therefore it defaults to null and so we check the {$buttonId}{$page} against 1null (1 for button 1) and null for no state\n    //! We can check {$buttonId}{$page} against multiple values, multiple values are delimited using the | character in the switch command \n    //! On the first page there is only one button - \"Next\"\n    //! The switch command takes 3 arguments, value A and, the value we want to compare value A against, and which line of code we want the app to jump to\n    //! Because the line of your code can change, keeping track of which line number in the code can be difficult therefore we use tags\n    //! Tags will automatically take note of the line in which the tag is situated, in this example we are using tags\n    //! We refer to tags with # in our switch and or hop arguments\n    \n    switch {$buttonId}{$pageId},11|1null,#showPage2;\n    switch {$buttonId}{$pageId},12,#showWelcomePage;\n    switch {$buttonId}{$pageId},22,#showPage3;\n    switch {$buttonId}{$pageId},13,#showPage2;\n    \n    //! In the last page, we show button 2 as \"Go back to the welcome page\".\n    switch {$buttonId}{$pageId},23,#showWelcomePage;\n  \texit!;\nend_if;"},"s1721430393730":{"type":"execute_code","code":"tag showPage2;\ntemplate null,page-2.html;\nrespond @@;\nexit!;"},"s1721430399031":{"type":"execute_code","code":"tag showPage3;\ntemplate null,page-3.html;\nrespond @@;\nexit!;"}}}
+{
+  "id": "s1708457878822",
+  "type": "run",
+  "data": {
+    "name": "run",
+    "label": "Run",
+    "description": "Start the application",
+    "icon": "play_arrow",
+    "inputs": [
+      {
+        "name": "interface_key",
+        "label": "Authentication Key",
+        "type": "text"
+      },
+      { "name": "interface_queue_key", "label": "Queue Key", "type": "text" }
+    ]
+  },
+  "children": [
+    {
+      "id": "s1721429464728",
+      "type": "execute_code",
+      "data": {
+        "name": "execute_code",
+        "label": "Execute Code",
+        "description": "Execute Flex Code",
+        "icon": "code",
+        "inputs": [{ "name": "code", "label": "Flex Code", "type": "code" }]
+      },
+      "children": []
+    },
+    {
+      "id": "s1721429466858",
+      "type": "execute_code",
+      "data": {
+        "name": "execute_code",
+        "label": "Execute Code",
+        "description": "Execute Flex Code",
+        "icon": "code",
+        "inputs": [{ "name": "code", "label": "Flex Code", "type": "code" }]
+      },
+      "children": [
+        {
+          "id": "s1721430393730",
+          "type": "execute_code",
+          "data": {
+            "name": "execute_code",
+            "label": "Execute Code",
+            "description": "Execute Flex Code",
+            "icon": "code",
+            "inputs": [{ "name": "code", "label": "Flex Code", "type": "code" }]
+          },
+          "children": [
+            {
+              "id": "s1721430399031",
+              "type": "execute_code",
+              "data": {
+                "name": "execute_code",
+                "label": "Execute Code",
+                "description": "Execute Flex Code",
+                "icon": "code",
+                "inputs": [
+                  { "name": "code", "label": "Flex Code", "type": "code" }
+                ]
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "values": {
+    "s1708457878822": {
+      "type": "run",
+      "interface_enabled": true,
+      "interface_queue_key": "untrustedData.fid"
+    },
+    "s1721429466858": {
+      "type": "execute_code",
+      "code": "//! Create the tag for this line of code\ntag showWelcomePage;\n\n//! Get the template we want to show for this page\n//! The template command takes 2 arguments - first is the image override, and the second is the template name\n//! The image override argument is a link to an image that you want your frame to display\n//! If the image override is null, the app will take a screenshot of your template and serve it as the frame image\n//! The image override is useful especially if you want the frame to use GIFs (since screenshots cannot server motion images).\ntemplate null,welcome-page.html;\n\n//! Respond to the request with the template content\nrespond @@;\n\n//! Exit the application since we've completed the request\nexit!;"
+    },
+    "s1721429464728": {
+      "type": "execute_code",
+      "code": "//! We have 3 pages on this frame - the welcome page, page 2, and page 3\n//! We want to show the landing page (welcome page), allow the user to click Next button to change to the next page & Back to the previous\n//! Node that comments are marked with //! prefix\n\n//! Show the default landing frame\ncondition equal_to request GET;\n\thop #showWelcomePage;\n    exit!;\nend_if;\n\n//! Process all POST request (Button Press)\ncondition equal_to request POST;\n    \n    //! Get the button ID from untrustedData\n    access buttonIndex,{$untrustedData};\n\t\n    //! Return values of the last function called can be accessed using @@\n    variable buttonId = @@;\n    \n\t//! Get the frame state\n    access state,{$untrustedData};\n    \n    //! Decode the page state (since the frame spec dictates it must be encoded as JSON string in URI form)\n    decode @@;\n    \n    //! Get the page value from our state (JSON object)\n    access page,@@;\n    \n    //! Store the page value into a variable\n    variable pageId = @@;\n    \n    //! Determine which page we want to show based on the buttonId and page\n    //! {$buttonId}{$page} indicates we're combining both values of the variables\n    //! By default the landing page will not provide a state (in which our page should be stated)\n    //! therefore it defaults to null and so we check the {$buttonId}{$page} against 1null (1 for button 1) and null for no state\n    //! We can check {$buttonId}{$page} against multiple values, multiple values are delimited using the | character in the switch command \n    //! On the first page there is only one button - \"Next\"\n    //! The switch command takes 3 arguments, value A and, the value we want to compare value A against, and which line of code we want the app to jump to\n    //! Because the line of your code can change, keeping track of which line number in the code can be difficult therefore we use tags\n    //! Tags will automatically take note of the line in which the tag is situated, in this example we are using tags\n    //! We refer to tags with # in our switch and or hop arguments\n    \n    switch {$buttonId}{$pageId},11|1null,#showPage2;\n    switch {$buttonId}{$pageId},12,#showWelcomePage;\n    switch {$buttonId}{$pageId},22,#showPage3;\n    switch {$buttonId}{$pageId},13,#showPage2;\n    \n    //! In the last page, we show button 2 as \"Go back to the welcome page\".\n    switch {$buttonId}{$pageId},23,#showWelcomePage;\n  \texit!;\nend_if;"
+    },
+    "s1721430393730": {
+      "type": "execute_code",
+      "code": "tag showPage2;\ntemplate null,page-2.html;\nrespond @@;\nexit!;"
+    },
+    "s1721430399031": {
+      "type": "execute_code",
+      "code": "tag showPage3;\ntemplate null,page-3.html;\nrespond @@;\nexit!;"
+    }
+  }
+}
